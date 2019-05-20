@@ -22,11 +22,11 @@
                     <p class="ml-5">{{$question->description}}</p>
                     <br><br>
                     <div class="messanger p-5">
-                        <div class="messages">
+                        <div class="messages" id="msgbox">
                             @foreach ($responses as $item)
                                 @if ($item->user->role->name == Auth::user()->role->name)                               
                                     <div class="message me">
-                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif">
+                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
                                         <p class="info">
                                             {{$item->response_text}}
                                             @isset($item->attachment->path)
@@ -36,7 +36,7 @@
                                     </div>
                                 @else 
                                     <div class="message">
-                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif">
+                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
                                         <p class="info">
                                             {{$item->response_text}}
                                             @isset($item->attachment->path)
@@ -51,7 +51,7 @@
                             <div class="sender">  
                                 @csrf                          
                                 <input type="hidden" name="question_id" value="{{$question->id}}">
-                                <input type="text" name="response_text" autocomplete="off" placeholder="Send Message" />
+                                <input type="text" name="response_text" autocomplete="off" placeholder="Type a response text" />
                                 <input type="file" name="file_path" id="attachment" style="display:none" />
                                 <label class="btn btn-success" for="attachment" style="margin-bottom:0; border-radius:0"><i class="fa fa-lg fa-fw fa-paperclip"></i></label>
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-lg fa-fw fa-paper-plane"></i></button>                            
@@ -67,8 +67,10 @@
 
 @endsection
 @section('script')
-
 <script>
-
+    var elmnt = document.getElementById("msgbox");
+    var elmnt1 = document.getElementById("msgbox");
+    var temp_height = elmnt.scrollHeight;
+    elmnt1.scrollTop = temp_height;
 </script>
 @endsection
