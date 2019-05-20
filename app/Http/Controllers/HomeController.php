@@ -53,13 +53,9 @@ class HomeController extends Controller
     public function admin_index(Request $request){
         $current_page = 'dashboard';
         $categories = Category::all();
-        $consultants = User::where('role_id', 2)->get();
         $mod = new Question();
-        $consultant_id = $category_id = $subject = $status = $period = '';
-        if ($request->has('consultant_id') && $request->get('consultant_id') != ""){
-            $consultant_id = $request->get('consultant_id');
-            $mod = $mod->where('consultant_id', $consultant_id);
-        }
+        $category_id = $subject = $status = $period = '';
+        
         if ($request->has('category_id') && $request->get('category_id') != ""){
             $category_id = $request->get('category_id');
             $mod = $mod->where('category_id', $category_id);
@@ -80,7 +76,7 @@ class HomeController extends Controller
         }
         $data = $mod->orderBy('created_at', 'desc')->paginate(10);
         if(null !== $request->get('page')){ $page_number = $request->get('page'); }else{ $page_number = 1; }
-        return view('admin.dashboard', compact('data', 'categories', 'consultants', 'current_page', 'consultant_id', 'category_id', 'subject', 'status', 'period', 'page_number'));
+        return view('admin.dashboard', compact('data', 'categories', 'current_page', 'category_id', 'subject', 'status', 'period', 'page_number'));
     }
 
     public function user_index(Request $request){
@@ -93,14 +89,8 @@ class HomeController extends Controller
         $user = Auth::user();
         $current_page = 'question';
         $categories = Category::all();
-        $consultant_array = $user->questions()->distinct()->pluck('consultant_id')->toArray();
-        $consultants = User::whereIn('id', $consultant_array)->get();
         $mod = $user->questions();
-        $consultant_id = $category_id = $subject = $status = $period = '';
-        if ($request->has('consultant_id') && $request->get('consultant_id') != ""){
-            $consultant_id = $request->get('consultant_id');
-            $mod = $mod->where('consultant_id', $consultant_id);
-        }
+        $category_id = $subject = $status = $period = '';
         if ($request->has('category_id') && $request->get('category_id') != ""){
             $category_id = $request->get('category_id');
             $mod = $mod->where('category_id', $category_id);
@@ -121,19 +111,14 @@ class HomeController extends Controller
         }
         $data = $mod->orderBy('created_at', 'desc')->paginate(10);
         if(null !== $request->get('page')){ $page_number = $request->get('page'); }else{ $page_number = 1; }
-        return view('user.question', compact('data', 'categories', 'consultants', 'current_page', 'consultant_id', 'category_id', 'subject', 'status', 'period', 'page_number'));
+        return view('user.question', compact('data', 'categories', 'current_page', 'category_id', 'subject', 'status', 'period', 'page_number'));
     }
 
     public function consultant_index(Request $request){
         $current_page = 'dashboard';
         $categories = Category::all();
-        $consultants = User::where('role_id', 2)->get();
         $mod = new Question();
-        $consultant_id = $category_id = $subject = $status = $period = '';
-        if ($request->has('consultant_id') && $request->get('consultant_id') != ""){
-            $consultant_id = $request->get('consultant_id');
-            $mod = $mod->where('consultant_id', $consultant_id);
-        }
+        $category_id = $subject = $status = $period = '';
         if ($request->has('category_id') && $request->get('category_id') != ""){
             $category_id = $request->get('category_id');
             $mod = $mod->where('category_id', $category_id);
@@ -154,6 +139,6 @@ class HomeController extends Controller
         }
         $data = $mod->orderBy('created_at', 'desc')->paginate(10);
         if(null !== $request->get('page')){ $page_number = $request->get('page'); }else{ $page_number = 1; }
-        return view('consultant.dashboard', compact('data', 'categories', 'consultants', 'current_page', 'consultant_id', 'category_id', 'subject', 'status', 'period', 'page_number'));
+        return view('consultant.dashboard', compact('data', 'categories', 'current_page', 'category_id', 'subject', 'status', 'period', 'page_number'));
     }
 }

@@ -29,7 +29,9 @@
 
     Route::post('/create_question', 'QuestionController@create')->name('question.create');
     Route::get('/delete_question/{id}', 'QuestionController@create')->name('question.delete');
-    Route::get('/close_question/{id}', 'QuestionController@create')->name('question.close');
+    Route::get('/accept_question/{id}', 'QuestionController@accept')->name('question.accept');
+    Route::get('/close_question/{id}', 'QuestionController@close')->name('question.close');
+    Route::get('/reply_index_question/{id}', 'QuestionController@reply_index')->name('question.reply_index');
     Route::post('/get_question_data', 'QuestionController@get_question_data')->name('get_question_data');
     Route::post('/reply_question', 'QuestionController@reply')->name('question.reply');
 

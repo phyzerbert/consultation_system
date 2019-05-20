@@ -5,9 +5,7 @@
 <section class="material-half-bg">
     <div class="cover"></div>
 </section>
-@php
-    dump($errors);
-@endphp
+
 <section class="login-content">
     <a href="{{ url('/') }}" style="text-decoration:none;">
         <div class="logo">

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
-        'user_id', 'consultant_id', 'category_id','subject', 'description', 'phone', 'file_path',
+        'user_id', 'consultant_id', 'category_id','subject', 'description', 'phone',
     ];
 
     public function category(){
@@ -20,5 +20,13 @@ class Question extends Model
 
     public function consultant(){
         return $this->belongsTo('App\User', 'consultant_id');
+    }
+
+    public function responses(){
+        return $this->hasMany('App\Response', 'question_id');
+    }
+
+    public function attachments(){
+        return $this->hasMany('App\Attachment', 'parent_id')->where('type', 1);
     }
 }

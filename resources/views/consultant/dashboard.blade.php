@@ -24,13 +24,6 @@
                                 <option value="{{$item->id}}" @if ($category_id == $item->id) selected @endif>{{$item->name}}</option>
                             @endforeach
                         </select>
-                        <label class="control-label mr-sm-2 mb-2" for="period">Consultant: </label>
-                        <select class="form-control form-control-sm mr-sm-3 mb-2" name="consultant_id" id="search_consultant">
-                            <option value="">Select a consultant</option>
-                            @foreach ($consultants as $item)
-                                <option value="{{$item->id}}" @if ($consultant_id == $item->id) selected @endif>{{$item->name}}</option>
-                            @endforeach
-                        </select>
                         <label class="control-label mr-sm-2 mb-2" for="period">Status: </label>
                         <select class="form-control form-control-sm mr-sm-3 mb-2" name="status" id="search_status">
                             <option value="">Select a Status</option>
@@ -71,18 +64,22 @@
                                 <td class="consultant">@isset($item->consultant->name) {{$item->consultant->name}} @endisset</td>
                                 <td class="status">
                                     @if ($item->status == 2)
-                                        Closed
+                                        <span class="text-danger">Closed</span>
                                     @elseif($item->status == 1)
-                                        Answered
+                                        <span class="text-success">Accepted</span>
                                     @else
-                                        Pending
+                                        <span class="text-muted">Pending</span>
                                     @endif
                                 </td>
                                 <td class="timestamp">{{$item->created_at}}</td>
                                 <td class="action py-2">
                                     <a href="#" class="btn btn-info btn-sm btn-view" data-id="{{$item->id}}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View"><i class="fa fa-info-circle" style="font-size:20px"></i>View</a>
                                     @if ($item->status == 0)
-                                        <a href="#" class="btn btn-primary btn-sm btn-reply" data-id="{{$item->id}}" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Reply"><i class="fa fa-reply" style="font-size:20px"></i>Reply</a>
+                                        <a href="{{route('question.accept', $item->id)}}" class="btn btn-primary btn-sm btn-accept" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Accept"><i class="fa fa-reply" style="font-size:20px"></i>Accept</a>
+                                    @elseif ($item->status == 1 )
+                                        @if($item->consultant_id == Auth::user()->id)
+                                            <a href="{{route('question.reply_index', $item->id)}}" class="btn btn-success btn-sm btn-reply" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Reply"><i class="fa fa-reply" style="font-size:20px"></i>Reply</a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
@@ -132,14 +129,6 @@
                         <label class="col-sm-3 text-right">Status :</label>
                         <label class="col-sm-9 status"></label>
                     </div>
-                    <div class="row mb-2">
-                        <label class="col-sm-3 text-right">Consultant :</label>
-                        <label class="col-sm-9 consultant"></label>
-                    </div>                    
-                    <div class="row mb-2">
-                        <label class="col-sm-3 text-right">Answer :</label>
-                        <pre class="col-sm-9 answer"></pre>
-                    </div>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -173,8 +162,8 @@
                         <pre class="description field"></pre>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">Answer:</label>
-                        <textarea class="form-control" name="answer" id="answer" rows="4" required placeholder="Answer"></textarea>
+                        <label class="control-label">Response Text:</label>
+                        <textarea class="form-control" name="response_text" id="response_text" rows="4" required placeholder="Answer"></textarea>
                     </div>
                 </div>
 
@@ -200,7 +189,6 @@
             let consultant = $(this).parents('tr').find(".consultant").text();
             let status = $(this).parents('tr').find(".status").text();
             let description = $(this).parents('tr').find(".description").val().trim();
-            let answer = $(this).parents('tr').find(".answer").val().trim();
             let attachment = $(this).parents('tr').find(".attachment").val().trim();
             let filename = $(this).parents('tr').find(".attachment").data('value');
             $("#viewModal .field").text('');
@@ -209,13 +197,12 @@
             $("#viewModal .consultant").text(consultant);
             $("#viewModal .status").text(status);
             $("#viewModal .description").text(description);
-            $("#viewModal .answer").text(answer);
             $("#viewModal .attachment a").attr("href", public_path + attachment);
             $("#viewModal .attachment a").text(filename);            
             $("#viewModal").modal();
         });
 
-        $(".btn-reply").click(function(){
+        $(".btn-reply1").click(function(){
             let id = $(this).data('id');
             let category = $(this).parents('tr').find(".category").text();
             let subject = $(this).parents('tr').find(".subject").text();
@@ -231,7 +218,6 @@
         
         $("#btn-reset").click(function(){
             $("#search_category").val('');
-            $("#search_consultant").val('');
             $("#search_status").val('');
             $("#period").val('');
         });

@@ -24,13 +24,6 @@
                                 <option value="{{$item->id}}" @if ($category_id == $item->id) selected @endif>{{$item->name}}</option>
                             @endforeach
                         </select>
-                        <label class="control-label mr-sm-2 mb-2" for="period">Consultant: </label>
-                        <select class="form-control form-control-sm mr-sm-3 mb-2" name="consultant_id" id="search_consultant">
-                            <option value="">Select a consultant</option>
-                            @foreach ($consultants as $item)
-                                <option value="{{$item->id}}" @if ($consultant_id == $item->id) selected @endif>{{$item->name}}</option>
-                            @endforeach
-                        </select>
                         <label class="control-label mr-sm-2 mb-2" for="period">Status: </label>
                         <select class="form-control form-control-sm mr-sm-3 mb-2" name="status" id="search_status">
                             <option value="">Select a Status</option>
@@ -178,7 +171,6 @@
         
         $("#btn-reset").click(function(){
             $("#search_category").val('');
-            $("#search_consultant").val('');
             $("#search_status").val('');
             $("#period").val('');
         });

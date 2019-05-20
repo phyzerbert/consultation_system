@@ -18,9 +18,9 @@
 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">User ID</label>
-                    <input id="name" type="text" class="col-md-8 form-control" name="name" value="" placeholder="Username" required autofocus>
+                    <input id="name" type="text" class="col-md-8 form-control" name="name" value="{{ old('name') }}" placeholder="Username" required autofocus>
                     @if ($errors->has('name'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('name') }}</strong>
                         </span>
                     @endif
@@ -28,9 +28,9 @@
 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">Email</label>
-                    <input id="email" type="email" class="col-md-8 form-control" name="email" value="" placeholder="Email ID" required autofocus>
+                    <input id="email" type="email" class="col-md-8 form-control" name="email" value="{{ old('email') }}" placeholder="Email ID" required autofocus>
                     @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('name') }}</strong>
                         </span>
                     @endif
@@ -38,9 +38,9 @@
                 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">First Name</label>
-                    <input id="first_name" type="text" class="col-md-8 form-control" name="first_name" value="" placeholder="First Name" required autofocus>
+                    <input id="first_name" type="text" class="col-md-8 form-control" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" required autofocus>
                     @if ($errors->has('first_name'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('first_name') }}</strong>
                         </span>
                     @endif
@@ -48,9 +48,9 @@
 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">Last Name</label>
-                    <input id="last_name" type="text" class="col-md-8 form-control" name="last_name" value="" placeholder="Last Name" required autofocus>
+                    <input id="last_name" type="text" class="col-md-8 form-control" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" required autofocus>
                     @if ($errors->has('last_name'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('last_name') }}</strong>
                         </span>
                     @endif
@@ -58,9 +58,9 @@
 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">Phone</label>
-                    <input id="phone" type="text" class="col-md-8 form-control" name="phone" value="" placeholder="Mobile Number" required autofocus>
+                    <input id="phone" type="text" class="col-md-8 form-control" name="phone" value="{{ old('phone') }}" placeholder="Mobile Number" required autofocus>
                     @if ($errors->has('phone'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('phone') }}</strong>
                         </span>
                     @endif
@@ -68,9 +68,9 @@
 
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">Birthday</label>
-                    <input id="birthday" type="text" class="col-md-8 form-control" name="birthday" value="" placeholder="Date Of Birth" autofocus>
+                    <input id="birthday" type="text" class="col-md-8 form-control" name="birthday" value="{{ old('birthday') }}" autocomplete="off" placeholder="Date Of Birth" autofocus>
                     @if ($errors->has('birthday'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('birthday') }}</strong>
                         </span>
                     @endif
@@ -78,9 +78,9 @@
                     
                 <div class="form-group row">
                     <label class="col-md-4 control-label mt-2">Password</label>
-                    <input id="password" type="password" class="col-md-8 form-control" name="password" placeholder="Password" required>
+                    <input id="password" type="password" class="col-md-8 form-control" name="password" value="{{ old('password') }}" placeholder="Password" required>
                     @if ($errors->has('password'))
-                        <div class="invalid-feedback" role="alert" style="display: block">
+                        <div class="invalid-feedback ml-5" role="alert" style="display: block">
                             <strong>{{ $errors->first('password') }}</strong>
                         </div>
                     @endif
@@ -90,7 +90,7 @@
                     <label class="col-md-4 control-label mt-2">Confirm</label>
                     <input id="password_confirm" type="password" class="col-md-8 form-control" name="password_confirmation" placeholder="Confirm Password" required>
                     @if ($errors->has('password_confirmation'))
-                        <span class="invalid-feedback" role="alert">
+                        <span class="invalid-feedback ml-5" role="alert">
                             <strong>{{ $errors->first('password_confirmation') }}</strong>
                         </span>
                     @endif

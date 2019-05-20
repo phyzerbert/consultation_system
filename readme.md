@@ -17,3 +17,5 @@
 - From the projects root folder run 'php artisan db:seed'
 - Run 'php artisan serve'
 - Start server at http://localhost:8000
+- Admin email: admin@consultant.com
+- Admin Password: admin123
