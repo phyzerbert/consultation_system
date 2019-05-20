@@ -17,10 +17,11 @@
                 <h3 class="tile-title pl-5">Subject: {{$question->subject}}</h3>
                 <div class="tile-body mt-3">
                     <div class="px-5">
-                        <h5>User :   {{$question->user->first_name}}, {{$question->user->last_name}}</h5>
-                        <h5>Type Of Issue : {{$question->category->name}}</h5>
+                        <h5>User :  <span class="text-primary"> {{$question->user->first_name}}, {{$question->user->last_name}}</span></h5>
+                        <h5>Consultant :   <span class="text-primary"> {{$question->consultant->first_name}}, {{$question->consultant->last_name}}</span></h5>
+                        <h5>Type Of Issue : <span class="text-primary"> {{$question->category->name}}</span></h5>
                         <h5>Query Description :</h5>
-                        <p class="ml-5">{{$question->description}}</p>
+                        <p class="ml-5" style="font-size:18px;">{{$question->description}}</p>
                     </div>
                     <div class="p-5">
                         <div class="messanger border border-primary border-bottom-0 rounded">
@@ -66,7 +67,6 @@
         </div>
     </div>
 </div>
-
 
 @endsection
 @section('script')
