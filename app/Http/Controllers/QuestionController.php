@@ -64,9 +64,12 @@ class QuestionController extends Controller
         return back()->with('Accepted Successfully');
     }
 
-    public function reply_index($id){
+    public function reply_index($id){        
         $current_page = 'dashboard';
         $question = Question::find($id);
+        if(Auth::user()->id != $question->user_id && Auth::user()->id != $question->consultant_id){
+            return back()->withErrors(['not_allowed' => 'You can not reply to this question.']);
+        }
         $responses = $question->responses;
         return view('reply', compact('question', 'responses', 'current_page'));
     }
@@ -74,7 +77,10 @@ class QuestionController extends Controller
     public function reply(Request $request){
         $id = $request->get('question_id');
         $question = Question::find($id);
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user()->id;        
+        if($user_id != $question->user_id && $user_id != $question->consultant_id){
+            return back()->withErrors(['not_allowed' => 'You can not reply to this question.']);
+        }
         $response_text = $request->get('response_text');
         $response = Response::create([
             'question_id' => $question->id,

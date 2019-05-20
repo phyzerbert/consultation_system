@@ -14,49 +14,52 @@
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title">Subject: {{$question->subject}}</h3>
+                <h3 class="tile-title pl-5">Subject: {{$question->subject}}</h3>
                 <div class="tile-body mt-3">
-                    <h5>User : {{$question->user->first_name}}, {{$question->user->last_name}}</h5>
-                    <h5>Type Of Issue : {{$question->category->name}}</h5>
-                    <h5>Query Description :</h5>
-                    <p class="ml-5">{{$question->description}}</p>
-                    <br><br>
-                    <div class="messanger p-5">
-                        <div class="messages" id="msgbox">
-                            @foreach ($responses as $item)
-                                @if ($item->user->role->name == Auth::user()->role->name)                               
-                                    <div class="message me">
-                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
-                                        <p class="info">
-                                            {{$item->response_text}}
-                                            @isset($item->attachment->path)
-                                                <br><a href="{{asset($item->attachment->path)}}" download="" class="text-light"><i class="fa fa-fw fa-paperclip"></i>{{basename($item->attachment->path)}}</a>
-                                            @endisset
-                                        </p>
-                                    </div>
-                                @else 
-                                    <div class="message">
-                                        <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
-                                        <p class="info">
-                                            {{$item->response_text}}
-                                            @isset($item->attachment->path)
-                                                <br><a href="{{asset($item->attachment->path)}}" download="" class="text-dark"><i class="fa fa-fw fa-paperclip"></i>{{basename($item->attachment->path)}}</a>
-                                            @endisset
-                                        </p>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                        <form action="{{route('question.reply')}}" method="post" enctype="multipart/form-data">
-                            <div class="sender">  
-                                @csrf                          
-                                <input type="hidden" name="question_id" value="{{$question->id}}">
-                                <input type="text" name="response_text" autocomplete="off" placeholder="Type a response text" />
-                                <input type="file" name="file_path" id="attachment" style="display:none" />
-                                <label class="btn btn-success" for="attachment" style="margin-bottom:0; border-radius:0"><i class="fa fa-lg fa-fw fa-paperclip"></i></label>
-                                <button class="btn btn-primary" type="submit"><i class="fa fa-lg fa-fw fa-paper-plane"></i></button>                            
+                    <div class="px-5">
+                        <h5>User :   {{$question->user->first_name}}, {{$question->user->last_name}}</h5>
+                        <h5>Type Of Issue : {{$question->category->name}}</h5>
+                        <h5>Query Description :</h5>
+                        <p class="ml-5">{{$question->description}}</p>
+                    </div>
+                    <div class="p-5">
+                        <div class="messanger border border-primary border-bottom-0 rounded">
+                            <div class="messages" id="msgbox">
+                                @foreach ($responses as $item)
+                                    @if ($item->user->role->name == Auth::user()->role->name)                               
+                                        <div class="message me">
+                                            <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
+                                            <p class="info">
+                                                {{$item->response_text}}
+                                                @isset($item->attachment->path)
+                                                    <br><a href="{{asset($item->attachment->path)}}" download="" class="text-light"><i class="fa fa-fw fa-paperclip"></i>{{basename($item->attachment->path)}}</a>
+                                                @endisset
+                                            </p>
+                                        </div>
+                                    @else 
+                                        <div class="message">
+                                            <img src="@if($item->user->picture != null){{asset($item->user->picture)}} @else {{asset('images/avatar.png')}} @endif" width="40">
+                                            <p class="info">
+                                                {{$item->response_text}}
+                                                @isset($item->attachment->path)
+                                                    <br><a href="{{asset($item->attachment->path)}}" download="" class="text-dark"><i class="fa fa-fw fa-paperclip"></i>{{basename($item->attachment->path)}}</a>
+                                                @endisset
+                                            </p>
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                        </form>
+                            <form action="{{route('question.reply')}}" method="post" enctype="multipart/form-data">
+                                <div class="sender">  
+                                    @csrf                          
+                                    <input type="hidden" name="question_id" value="{{$question->id}}">
+                                    <input type="text" name="response_text" autocomplete="off" placeholder="Type a response text" />
+                                    <input type="file" name="file_path" id="attachment" style="display:none" />
+                                    <label class="btn btn-success" for="attachment" style="margin-bottom:0; border-radius:0"><i class="fa fa-lg fa-fw fa-paperclip"></i></label>
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-lg fa-fw fa-paper-plane"></i></button>                            
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
