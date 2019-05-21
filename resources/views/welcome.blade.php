@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Consultant System</title>
+    <title>Ductu</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -40,7 +40,7 @@
 
             <div id="logo" class="pull-left">
                 <h1>
-                    <a href="{{route('home')}}" class="scrollto" style="border: none">Consultation System</a>
+                    <a href="{{route('home')}}" class="scrollto" style="border: none">{{env('APP_NAME', 'Ductu')}}</a>
                 </h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="#intro"><img src="{{asset('front/img/logo.png')}}" alt="" title="" /></a>-->
@@ -458,7 +458,7 @@
             <div class="row">
 
                 <div class="col-lg-3 col-md-6 footer-info">
-                    <h3>Consultation System</h3>
+                    <h3>{{env('APP_NAME', 'Ductu')}}</h3>
                     <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita
                         valies
                         darta donna mare fermentum iaculis eu non diam phasellus. Scelerisque felis imperdiet proin

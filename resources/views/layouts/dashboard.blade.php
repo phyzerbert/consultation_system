@@ -4,12 +4,12 @@
         <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
         <!-- Open Graph Meta-->
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="Consultation System">
+        <meta property="og:site_name" content="{{env('APP_NAME', 'Ductu')}}">
         <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
         <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
         <meta property="og:image" content="{{asset('images/favicon.png')}}>
         <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-        <title>Consultation System</title>
+        <title>{{env('APP_NAME', 'Ductu')}}</title>
         <meta charset="utf-8">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

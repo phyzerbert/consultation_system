@@ -98,13 +98,15 @@
                                                 @endphp
                                                 <br>
                                                     @if (in_array($extension, $image_array))
-                                                        <img width="50" style="border-radius:0px;" src="{{asset($path)}}" alt="" />
+                                                        <a href="{{asset($path)}}" download><img width="50" style="border-radius:0px;" src="{{asset($path)}}" alt="" /></a>
                                                     @elseif(in_array($extension, $doc_array))
                                                         <a href="{{asset($path)}}" download><img width="50" style="border-radius:0px;" src="{{asset('images/word.png')}}" alt="" /></a>
                                                     @elseif(in_array($extension, $audio_array))
-                                                        <audio style="width:200px;height:30px;" controls><source src="{{asset($path)}}"></audio>
+                                                        <a href="{{asset($path)}}" download><audio style="width:200px;height:30px;" controls><source src="{{asset($path)}}"></audio>
+                                                        <br><a href="{{asset($path)}}" download>{{$filename}}</a>
                                                     @elseif(in_array($extension, $video_array))
                                                         <video width="160" height="120" controls><source src="{{asset($path)}}"></video>
+                                                        <br><a href="{{asset($path)}}" download>{{$filename}}</a>
                                                     @else
                                                         <a href="{{asset($path)}}" download>{{$filename}}</a>
                                                     @endif

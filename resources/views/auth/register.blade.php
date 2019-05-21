@@ -8,7 +8,7 @@
     <section class="login-content">
         <a href="{{ url('/') }}" style="text-decoration:none;">
             <div class="logo">
-                <h1>Consultation System</h1>
+                <h1>{{env('APP_NAME', 'Ductu')}}</h1>
             </div>
         </a>
         <div class="login-box" style="min-height:650px; min-width:380px;">
