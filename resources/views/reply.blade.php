@@ -1,5 +1,26 @@
 @extends('layouts.dashboard')
 @section('content')
+<style>
+    .progress {
+        display: none;
+    }
+
+    .progress-bar {
+        width: 0%;
+        height: 16px;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+    }        
+
+    #outputImage {
+        display: none;
+    }
+
+    #outputImage img {
+        max-width: 200px;
+    }
+</style>
 <div class="app-title">
     <div>
         <h1><i class="fa fa-users"></i>&nbsp;Consultant Dashboard</h1>
@@ -94,7 +115,10 @@
                                     </div>                                   
                                 @endforeach
                             </div>
-                            <form action="{{route('question.reply')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('question.reply')}}" method="post" id="replyForm" enctype="multipart/form-data">                                                               
+                                <div class="progress mb-1" id="progressDivId">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" id='progress-bar' role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                                </div>
                                 <div class="sender">  
                                     @csrf                          
                                     <input type="hidden" name="question_id" value="{{$question->id}}">
@@ -114,10 +138,39 @@
 
 @endsection
 @section('script')
+<script src="{{asset('main/js/plugins/jquery.form.min.js')}}"></script>
 <script>
     var elmnt = document.getElementById("msgbox");
     var elmnt1 = document.getElementById("msgbox");
     var temp_height = elmnt.scrollHeight;
     elmnt1.scrollTop = temp_height;
+    $(function(){
+        $('#replyForm').submit(function(e) {	
+            let percent = 0;
+            if($('#attachment').val()) {
+                e.preventDefault();
+                $(this).ajaxSubmit({ 
+                    // target:   '#targetLayer', 
+                    beforeSubmit: function() {
+                        $("#progress-bar").width('0%');
+                        $("#progressDivId").show();
+                    },
+                    uploadProgress: function (event, position, total, percentComplete){	
+                        $("#progress-bar").width(percentComplete + '%');
+                        $("#progress-bar").html('<div id="progress-status">' + percentComplete +' %</div>')
+                        percent = percentComplete;
+                    },
+                    success:function (){
+                        alert("Replied Successfully");
+                        $("#progress-bar").width('100%');
+                        window.location.reload(true); 
+                        $('#loader-icon').hide();
+                    },
+                    resetForm: true 
+                }); 
+                return false; 
+            }
+        });
+    });
 </script>
 @endsection

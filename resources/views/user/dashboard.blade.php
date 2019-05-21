@@ -84,6 +84,7 @@
 <script>
     $(function(){
         $('#questionForm').submit(function(e) {	
+            let percent = 0;
             if($('#attachment').val()) {
                 e.preventDefault();
                 $(this).ajaxSubmit({ 
@@ -95,8 +96,12 @@
                     uploadProgress: function (event, position, total, percentComplete){	
                         $("#progress-bar").width(percentComplete + '%');
                         $("#progress-bar").html('<div id="progress-status">' + percentComplete +' %</div>')
+                        percent = percentComplete;
                     },
                     success:function (){
+                        alert("Requested Successfully");
+                        $("#progress-bar").width('100%');
+                        window.location.reload(true);
                         $('#loader-icon').hide();
                     },
                     resetForm: true 
