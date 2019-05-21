@@ -26,7 +26,7 @@ class Question extends Model
         return $this->hasMany('App\Response', 'question_id');
     }
 
-    public function attachments(){
-        return $this->hasMany('App\Attachment', 'parent_id')->where('type', 1);
+    public function attachment(){
+        return $this->hasOne('App\Attachment', 'parent_id')->where('type', 1);
     }
 }

@@ -28,7 +28,7 @@
                         <select class="form-control form-control-sm mr-sm-3 mb-2" name="status" id="search_status">
                             <option value="">Select a Status</option>
                             <option value="0" @if ($status == '0') selected @endif>Pending</option>
-                            <option value="1" @if ($status == '1') selected @endif>Answered</option>
+                            <option value="1" @if ($status == '1') selected @endif>Accepted</option>
                             <option value="2" @if ($status == '2') selected @endif>Closed</option>                            
                         </select>
                         <label class="control-label mr-sm-2 mb-2" for="period">Requested Time: </label>
@@ -56,7 +56,7 @@
                             <tr>
                                 <input type="hidden" class="description" value="{{$item->description}}">
                                 <input type="hidden" class="answer" value="{{$item->answer}}">
-                                <input type="hidden" class="attachment" data-value="{{basename($item->file_path)}}" value="{{$item->file_path}}">
+                                <input type="hidden" class="attachment" @isset($item->attachment->path) data-value="{{basename($item->attachment->path)}}" data-ext="{{pathinfo($item->attachment->path, PATHINFO_EXTENSION)}}" value="{{$item->attachment->path}}" @endif />
                                 <td>{{ ($page_number-1) * 10 + $loop->index+1 }}</td>
                                 <td class="user_id">{{$item->user->name}}</td>
                                 <td class="category">{{$item->category->name}}</td>
@@ -64,11 +64,11 @@
                                 <td class="consultant">@isset($item->consultant->name) {{$item->consultant->name}} @endisset</td>
                                 <td class="status">
                                     @if ($item->status == 2)
-                                        Closed
+                                        <span class="text-danger">Closed</span>
                                     @elseif($item->status == 1)
-                                        Answered
+                                        <span class="text-success">Accepted</span>
                                     @else
-                                        Pending
+                                        <span class="text-muted">Pending</span>
                                     @endif
                                 </td>
                                 <td class="timestamp">{{$item->created_at}}</td>
@@ -123,14 +123,6 @@
                         <label class="col-sm-3 text-right">Status :</label>
                         <label class="col-sm-9 status"></label>
                     </div>
-                    <div class="row mb-2">
-                        <label class="col-sm-3 text-right">Consultant :</label>
-                        <label class="col-sm-9 consultant"></label>
-                    </div>                    
-                    <div class="row mb-2">
-                        <label class="col-sm-3 text-right">Answer :</label>
-                        <pre class="col-sm-9 answer"></pre>
-                    </div>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -146,6 +138,7 @@
 <script>
     $(document).ready(function () {
         var public_path = "{{asset('')}}";
+        
         $(".btn-view").click(function(){
             let id = $(this).data('id');
             let category = $(this).parents('tr').find(".category").text();
@@ -156,6 +149,7 @@
             let answer = $(this).parents('tr').find(".answer").val().trim();
             let attachment = $(this).parents('tr').find(".attachment").val().trim();
             let filename = $(this).parents('tr').find(".attachment").data('value');
+            let extention = $(this).parents('tr').find(".attachment").data('ext');
             $("#viewModal .field").text('');
             $("#viewModal .category").text(category);
             $("#viewModal .subject").text(subject);
@@ -164,7 +158,23 @@
             $("#viewModal .description").text(description);
             $("#viewModal .answer").text(answer);
             $("#viewModal .attachment a").attr("href", public_path + attachment);
-            $("#viewModal .attachment a").text(filename);            
+            let image_array = ['jpg', 'jpeg', 'gif', 'png'];
+            let doc_array = ['doc', 'docx', 'xlsx', 'ppt'];
+            let audio_array = ['mp3', 'ogg', 'wav'];
+            let video_array = ['avi', 'mpg', 'mp4'];
+            let content = ''
+            if(image_array.indexOf(extention) > -1){
+                content = `<img width="100" src="${public_path + attachment}">`;
+            }else if(doc_array.indexOf(extention) > -1){
+                content = '<img src="' + public_path + 'images/word.png' + '">';
+            }else if(audio_array.indexOf(extention) > -1){
+                content = `<audio style="width:300px;height:40px;" controls><source src="${public_path+attachment}"></audio>`;
+            }else if(video_array.indexOf(extention) > -1){
+                content = `<video width="160" height="120" controls><source src="${public_path+attachment}"></video>`;
+            }else{
+                content = filename;
+            }
+            $("#viewModal .attachment a").html(content);            
             $("#viewModal").modal();
         });
 

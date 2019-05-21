@@ -17,15 +17,15 @@ class QuestionController extends Controller
     }
 
     public function create(Request $request){
-        $request->validate([
-            'category_id'=>'required',
-            'subject'=>'required',
-            'description'=>'required',
-        ]);
+        // $request->validate([
+        //     'category_id'=>'required',
+        //     'subject'=>'required',
+        //     'description'=>'required',
+        // ]);
         $data = $request->all(); 
         $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
         $question = Question::create($data);
-        if($request->has("file_path")){
+        if(request()->file('file_path') != null){
             $attachment = request()->file('file_path');
             $imageName = time().'.'.$attachment->getClientOriginalExtension();
             $attachment->move(public_path('uploads/question_attachments'), $imageName);
@@ -36,6 +36,7 @@ class QuestionController extends Controller
                 'path' => $path,
             ]);
         }
+        // return response()->json($request->all());
         return back()->with('success', 'Requested Successfully.');
     }
 
