@@ -59,13 +59,13 @@
                             <h5>Attachment :</h5>
                             <div class="pl-5">
                                 @if (in_array($extension, $image_array))
-                                    <img width="120" src="{{asset($path)}}" alt="" />
+                                    <a href="{{asset($path)}}" download><img width="120" src="{{asset($path)}}" alt="" /></a>
                                 @elseif(in_array($extension, $doc_array))
-                                    <a href="{{asset($path)}}" download><img width="120" src="{{asset('images/word.png')}}" alt="" /></a>
+                                    <a href="{{asset($path)}}" download><a href="{{asset($path)}}" download><img width="120" src="{{asset('images/word.png')}}" alt="" /></a>
                                 @elseif(in_array($extension, $audio_array))
-                                    <audio style="width:300px;height:40px;" controls><source src="{{asset($path)}}"></audio>
+                                    <a href="{{asset($path)}}" download><audio style="width:300px;height:40px;" controls><source src="{{asset($path)}}"></audio></a>
                                 @elseif(in_array($extension, $video_array))
-                                    <video width="160" height="120" controls><source src="{{asset($path)}}"></video>
+                                    <a href="{{asset($path)}}" download><video width="160" height="120" controls><source src="{{asset($path)}}"></video></a>
                                 @else
                                     <a href="{{asset($path)}}" download>{{$filename}}</a>
                                 @endif
@@ -102,13 +102,11 @@
                                                     @elseif(in_array($extension, $doc_array))
                                                         <a href="{{asset($path)}}" download><img width="50" style="border-radius:0px;" src="{{asset('images/word.png')}}" alt="" /></a>
                                                     @elseif(in_array($extension, $audio_array))
-                                                        <a href="{{asset($path)}}" download><audio style="width:200px;height:30px;" controls><source src="{{asset($path)}}"></audio>
-                                                        <br><a href="{{asset($path)}}" download>{{$filename}}</a>
+                                                        <a href="{{asset($path)}}" download><audio style="width:200px;height:30px;" controls><source src="{{asset($path)}}"></audio></a>
                                                     @elseif(in_array($extension, $video_array))
-                                                        <video width="160" height="120" controls><source src="{{asset($path)}}"></video>
-                                                        <br><a href="{{asset($path)}}" download>{{$filename}}</a>
+                                                        <a href="{{asset($path)}}" download><video width="160" height="120" controls><source src="{{asset($path)}}"></video></a>
                                                     @else
-                                                        <a href="{{asset($path)}}" download>{{$filename}}</a>
+                                                        <a href="{{asset($path)}}" @if($me) class="text-light" @endif download>{{$filename}}</a>
                                                     @endif
                                                     {{-- <br> --}}
                                                     {{-- <a href="{{asset($item->attachment->path)}}" download="" class="@if($me) text-light @else text-dark @endif"><i class="fa fa-fw fa-paperclip"></i>{{basename($item->attachment->path)}}</a> --}}
