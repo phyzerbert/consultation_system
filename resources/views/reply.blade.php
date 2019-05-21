@@ -145,7 +145,11 @@
     var temp_height = elmnt.scrollHeight;
     elmnt1.scrollTop = temp_height;
     $(document).ready(function(){
-        $('#attachment').change(function (e) { $("#btn-attach").removeClass('btn-success').addClass('btn-warning'); });
+        $('#attachment').change(function (e) {
+             if($(this).val()){
+                $("#btn-attach").removeClass('btn-success').addClass('btn-warning'); 
+             }
+        });
         $('#replyForm').submit(function(e) {	
             let percent = 0;
             if($('#attachment').val()) {
