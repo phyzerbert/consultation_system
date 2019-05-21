@@ -124,7 +124,7 @@
                                     <input type="hidden" name="question_id" value="{{$question->id}}">
                                     <input type="text" name="response_text" autocomplete="off" placeholder="Type a response text" />
                                     <input type="file" name="file_path" id="attachment" style="display:none" />
-                                    <label class="btn btn-success" for="attachment" style="margin-bottom:0; border-radius:0"><i class="fa fa-lg fa-fw fa-paperclip"></i></label>
+                                    <label class="btn btn-success" for="attachment" id="btn-attach" style="margin-bottom:0; border-radius:0"><i class="fa fa-lg fa-fw fa-paperclip"></i></label>
                                     <button class="btn btn-primary" type="submit"><i class="fa fa-lg fa-fw fa-paper-plane"></i></button>                            
                                 </div>
                             </form>
@@ -144,7 +144,8 @@
     var elmnt1 = document.getElementById("msgbox");
     var temp_height = elmnt.scrollHeight;
     elmnt1.scrollTop = temp_height;
-    $(function(){
+    $(document).ready(function(){
+        $('#attachment').change(function (e) { $("#btn-attach").removeClass('btn-success').addClass('btn-warning'); });
         $('#replyForm').submit(function(e) {	
             let percent = 0;
             if($('#attachment').val()) {
@@ -169,8 +170,8 @@
                     resetForm: true 
                 }); 
                 return false; 
-            }
-        });
+            }           
+        });        
     });
 </script>
 @endsection
