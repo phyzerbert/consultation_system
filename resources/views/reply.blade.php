@@ -147,7 +147,11 @@
     $(document).ready(function(){
         $('#attachment').change(function (e) {
              if($(this).val()){
-                $("#btn-attach").removeClass('btn-success').addClass('btn-warning'); 
+                $("#btn-attach").removeClass('btn-success').addClass('btn-warning');
+                $("#btn-attach").attr("title", "File is selected");
+             }else{
+                $("#btn-attach").removeClass('btn-warning').addClass('btn-success');
+                $("#btn-attach").attr("title", "No selected file");
              }
         });
         $('#replyForm').submit(function(e) {	
