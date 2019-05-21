@@ -30,7 +30,7 @@ class QuestionController extends Controller
         $question = Question::create($data);
         $user = Auth::user();
         $toEmail = $user->email;
-        Mail::to($toEmail)->send(new PostMail($user->first_name.", ".$user->last_name, date('M d, Y H:i:s')));
+        Mail::to($toEmail)->send(new PostMail($user->first_name." ".$user->last_name, date('M d, Y H:i:s')));
 
         if(request()->file('file_path') != null){
             $attachment = request()->file('file_path');

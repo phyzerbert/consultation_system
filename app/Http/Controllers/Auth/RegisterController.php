@@ -73,7 +73,7 @@ class RegisterController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
 
         $toEmail = $data['email'];
-        Mail::to($toEmail)->send(new RegisterMail($data['first_name'].", ".$data['last_name'], date('M d, Y H:i:s')));
+        Mail::to($toEmail)->send(new RegisterMail($data['first_name']." ".$data['last_name'], date('M d, Y H:i:s')));
 
         return User::create([
             'name' => $data['name'],
