@@ -7,6 +7,9 @@ use App\Question;
 use App\Response;
 use App\Attachment;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PostMail;
+
 use Auth;
 
 class QuestionController extends Controller
@@ -25,6 +28,10 @@ class QuestionController extends Controller
         $data = $request->all(); 
         $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
         $question = Question::create($data);
+        $user = Auth::user();
+        $toEmail = $user->email;
+        Mail::to($toEmail)->send(new PostMail($user->first_name.", ".$user->last_name, date('M d, Y H:i:s')));
+
         if(request()->file('file_path') != null){
             $attachment = request()->file('file_path');
             $imageName = time().'.'.$attachment->getClientOriginalExtension();
