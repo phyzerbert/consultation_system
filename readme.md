@@ -8,7 +8,7 @@
 - Copy .env.example to .env
 - Configure your .env file
     - APP_NAME=ConsultantSystem
-    - DB_DATABASE=consult
+    - DB_DATABASE=ductu
     - DB_USERNAME=root
     - DB_PASSWORD=null
 - Run 'composer update' from the projects root folder.
